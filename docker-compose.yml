@@ -1,0 +1,68 @@
+version: '3.3'
+
+#Ебучая сетка с которй я больше всего страдал
+networks:
+  net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.18.0.0/24
+
+services:
+#Короче, ебаный рот, эта хуйня проксирует трафик от клиента к нужному серверу)
+  infrared:
+    image: haveachin/infrared:2.0.0-alpha.14
+    container_name: infrared
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ports:
+      - "25565:25565/tcp"
+    networks:
+      net:
+        ipv4_address: 172.18.0.2
+    volumes:
+      - "./ProxyConf:/configs/"
+    expose:
+      - "25565"
+    environment:
+      INFRARED_CONFIG_PATH: "./configs/"
+      INFRARED_WORKING_DIR: "./configs/infrared"
+    depends_on:
+      - all8
+      - vanilla
+
+#Вот эта залупа, сервер #1
+  all8:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25566:25565"
+    networks:
+      net:
+        ipv4_address: 172.18.0.3
+    environment:
+      EULA: "TRUE"
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./1all8:/data
+ 
+  #Вот эта залупа, сервер #2
+  vanilla:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25567:25565"
+    networks:
+      net:
+        ipv4_address: 172.18.0.4
+    environment:
+      EULA: "TRUE"
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./1vanilla:/data#
+      
+
+
