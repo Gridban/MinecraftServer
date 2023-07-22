@@ -1,0 +1,59 @@
+# Session validator validates online minecraft clients when under attack
+#
+sessionValidator:
+  # Enables the plugin
+  #
+  enable: false
+
+  # A map of session validator configurations
+  #
+  sessionValidators:
+    # This is just an ID. In this case "default",
+    # but you can give it a name that makes sense for you.
+    #
+    default:
+      # Server IDs to watch the traffic
+      #
+      serverIds:
+        - default
+
+# Defaults are global default values that can be 
+#
+defaults:
+  sessionValidator:
+    # If this threshold is reached then the plugin will start to validate sessions.
+    # Set this to < 1 to always validate sessions.
+    #
+    cpsThreshold: 50
+
+    # Time that the client has to:
+    # 1. Receive the encryption request
+    # 2. Generate a shared secret and session hash
+    # 3. Sent the session hash to the session servers
+    # 4. Responde with a encryption response
+    # If players have issues to connect you should increase this in small increments.
+    #
+    encryptionResponseTimeout: 2s
+
+    # The base URL to the session server
+    #
+    sessionServerBaseURL: https://sessionserver.mojang.com
+
+    # Redis config for caching
+    #
+    redis:
+      # Connection URI
+      #
+      uri: redis://:@localhost:6379/0?read_timeout=5s&write_timeout=5s
+      
+      # Time to live of the data once written into the database
+      #
+      ttl: 24h
+  
+    # The message that is displayed to a client when are successfully validated and should rejoin.
+    #
+    validationSuccessMessage: Successfully validated! Please rejoin.
+
+    # The message that is displayed to a client when are successfully validated and should rejoin.
+    #
+    validationFailureMessage: Failed to validate.

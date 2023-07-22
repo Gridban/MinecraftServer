@@ -1,9 +1,0 @@
-{
-  "domainName": "all8.gridban.ru",
-  "listenTo": ":25565",
-  "proxyTo": "172.18.0.3:25565",
-  "proxyProtocol": false,
-  "realIp": false,
-  "timeout": 1000,
-  "disconnectMessage": "Username: {{username}}\nNow: {{now}}\nRemoteAddress: {{remoteAddress}}\nLocalAddress: {{localAddress}}\nDomain: {{domain}}\nProxyTo: {{proxyTo}}\nListenTo: {{listenTo}}"
-}

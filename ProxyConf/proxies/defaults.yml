@@ -1,0 +1,100 @@
+# This are recommended defaults that can be overridden by individual proxy configs.
+# Feel free to change these values to your liking.
+#
+defaults:
+  # Defaults for all Bedrock proxies.
+  #
+  java:
+    gateway:
+      listener:
+        # The message that is displayed to a client when they try to connect via an invalid domain.
+        #
+        serverNotFoundMessage: Зачем ты долбишься сюда?.
+
+        # The Java Edition has a different approach to handling status pings, than the Bedrock Edition.
+        # This makes it possible to display a custom message to clients if the domain that they want
+        # to connect though has a server configuration behind it.
+        #
+        serverNotFoundStatus:
+          versionName: АнтиБотяра
+          # The protocol number. For more info see https://wiki.vg/Protocol_version_numbers
+          #
+          protocolNumber: 0
+          maxPlayerCount: 0
+          playerCount: 0
+          iconPath: icons/stop.png
+          motd: |
+            Powered by Infrared
+            Привет, кажется такого сервера не существует.
+    server:
+      overrideAddress: true
+      dialTimeout: 1s
+      dialTimeoutMessage: Sorry {{username}}, but the server is not reachable.
+      # This is the message that is status response displayed to the client if the server is not
+      # has a valid config but is not reachable.
+      #
+      dialTimeoutStatus:
+        versionName: Infrared
+        protocolNumber: 0
+        maxPlayerCount: 0
+        playerCount: 0
+        iconPath: icons/default.png
+        motd: |
+          Powered by Infrared
+          Серверу немного плохо, но скоро он должен ожить. 
+      
+      # Infrared caches the server ping response so that status pings don't spam the minecraft server.
+      # This is the Time To Live of the cache. Set this to <=0 to disable caching.
+      #
+      statusCacheTTL: 10s
+
+java:
+  # Channel Capacity (ChanCap) is the capacity of a single channel
+  # You can think about channels like queues to this would translate
+  # to queue size. These describe the amount of connections that can
+  # be buffed before the proxy starts dropping connections.
+  #
+  chanCaps:
+    # The capacity of the channel from the gateway to the processing nodes
+    # If this is unset or 0
+    #
+    connProcessor: 100
+    
+    # The capacity of the channel from the processing nodes to the server gateway
+    #
+    server: 100
+    
+    # The capacity of the channel from the server gateway to the connection pool
+    #
+    connPool: 10
+  
+  # Processing nodes are the place where most of the processing is handled.
+  processingNode:
+    # Count describes the number of processing nodes that concurrently process
+    # incoming connections. By increasing the count of processing nodes you can
+    # tremendously reduce the effect of DDoS effects at the cost of performance.
+    # If your CPU has a lot of threads then feel free to increase this number.
+    #
+    count: 100
+    
+    # This is the amount of time a client has to get processed before it get's disconnected
+    # from the proxy. If you don't expect players form other continents you should decrease
+    # this to some 100ms. If players have issues to connect you should increase this in small increments.
+    #
+    clientTimeout: 300ms
+  
+  # Middleware configurations
+  middlewares:
+    # Rate limiter limits the amount of request a single IP can do in a specific windows of time.
+    rateLimiter:
+      # Enables the middleware
+      #
+      enable: true
+
+      # The request limit it the amount of requests a single IP can make in a specific window of time.
+      #
+      requestLimit: 6
+      
+      # This is the window of time in that a single IP can make a specific amount of requests.
+      #
+      windowLength: 500ms
