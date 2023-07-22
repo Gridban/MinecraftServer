@@ -27,7 +27,7 @@ java:
     # This is again just the name of the server.
     # These names ARE global. Make sure to not have duplicates.
     #
-    default:
+    server0:
       # We link this server to our default gateway.
       # That means that players that connect through any listener
       # in our "default" gateway can connect to this server.
@@ -43,11 +43,9 @@ java:
       #
       domains:
         - "all8.gridban.ru"
-
       # Address of the server that Infrared sends the players to.
       #
       address: 172.18.0.3:25565
-
       # Optional fields:
       # Also look at the defaults.yml file for more optional fields.
       #

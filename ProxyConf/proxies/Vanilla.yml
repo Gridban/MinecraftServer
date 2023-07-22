@@ -27,7 +27,7 @@ java:
     # This is again just the name of the server.
     # These names ARE global. Make sure to not have duplicates.
     #
-    default:
+    server1:
       # We link this server to our default gateway.
       # That means that players that connect through any listener
       # in our "default" gateway can connect to this server.
