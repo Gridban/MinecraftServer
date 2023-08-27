@@ -31,22 +31,22 @@ services:
       INFRARED_CONFIG_PATH: "./infrared/"
 
 #Это сервер #1
-  allTheMods8:
-    image: itzg/minecraft-server
-    environment:
-      EULA: "true"
-      MOD_PLATFORM: AUTO_CURSEFORGE
-      CF_API_KEY: ${CF_API_KEY}
-      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8
-      CF_FILENAME_MATCHER: "1.0.22"
-      MEMORY: 8G
-    networks:
-      Inet:
-        ipv4_address: 172.18.0.3
-    volumes:
-      - ./allTheMods8:/data
-      - ../downloads:/downloads
-    restart: unless-stopped
+#  allTheMods8:
+#    image: itzg/minecraft-server
+#    environment:
+#      EULA: "true"
+#      MOD_PLATFORM: AUTO_CURSEFORGE
+#      CF_API_KEY: ${CF_API_KEY}
+#      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8
+#      CF_FILENAME_MATCHER: "1.0.22"
+#      MEMORY: 8G
+#    networks:
+#      Inet:
+#        ipv4_address: 172.18.0.3
+#    volumes:
+#      - ./allTheMods8:/data
+#      - ../downloads:/downloads
+#    restart: unless-stopped
 
 ##Это сервер #2
 #  Vanilla:
@@ -72,6 +72,8 @@ services:
       EULA: "TRUE"
       TYPE: MOHIST
       VERSION: 1.16.5
+      VIEW_DISTANCE: 20
+      MEMORY: 16G
     networks:
       Inet:
         ipv4_address: 172.18.0.5
