@@ -48,18 +48,33 @@ services:
       - ../downloads:/downloads
     restart: unless-stopped
 
-#Это сервер #1
-  Vanilla:
+##Это сервер #2
+#  Vanilla:
+#    image: itzg/minecraft-server
+#    container_name: paper
+#    environment:
+#      EULA: "true"
+#      TYPE: PAPER
+#      VIEW_DISTANCE: 14
+#      MEMORY: 4G
+#    networks:
+#      Inet:
+#        ipv4_address: 172.18.0.4
+#    volumes:
+#      - ./Vanilla:/data
+#    restart: unless-stopped
+
+#Это сервер #3
+  edickServer:
     image: itzg/minecraft-server
-    container_name: paper
+    container_name: edickServer
     environment:
-      EULA: "true"
-      TYPE: PAPER
-      VIEW_DISTANCE: 14
-      MEMORY: 4G
+      EULA: "TRUE"
+      TYPE: MOHIST
+      VERSION: 1.16.5
     networks:
       Inet:
-        ipv4_address: 172.18.0.4
+        ipv4_address: 172.18.0.5
     volumes:
-      - ./Vanilla:/data
+      - ./edickServer:/data
     restart: unless-stopped
